@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FISO Exam - Grade 6 | House of J&S</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================
+           GOLD THEME
+           ============================================ */
+        :root {
+            --gold-dark: #7a6300;
+            --gold-primary: #c9a84c;
+            --gold-light: #f5d742;
+            --gold-gradient: linear-gradient(135deg, #b8860b, #d4a017, #f5d742);
+            --gold-subtle: #fcf5e6;
+            --gold-border: #e8d5a3;
+            --gold-glow: rgba(201, 168, 76, 0.3);
+            --success: #2e7d32;
+            --danger: #c62828;
+            --gray-50: #faf8f3;
+            --gray-100: #f0ede4;
+            --gray-200: #e0dccf;
+            --gray-300: #c5bfae;
+            --gray-400: #a69d88;
+            --gray-500: #7a705b;
+            --gray-600: #5d5442;
+            --gray-700: #403a2e;
+            --gray-800: #2a251d;
+            --gray-900: #16130e;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 20px rgba(139, 117, 0, 0.12);
+            --shadow-lg: 0 10px 40px rgba(139, 117, 0, 0.18);
+            --shadow-xl: 0 20px 60px rgba(139, 117, 0, 0.22);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ============================================
+           LOGIN
+           ============================================ */
+        #loginScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #1a1408, #3d2f0a, #6b4f12);
+            padding: 20px;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        #loginScreen.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.96);
+        }
+
+        .login-card {
+            background: linear-gradient(160deg, #fffcf0, #fdf6e3);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 48px 40px;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: var(--shadow-xl), 0 0 0 1px rgba(201, 168, 76, 0.3);
+            animation: loginFadeIn 0.6s ease;
+            border: 1px solid rgba(201, 168, 76, 0.25);
+        }
+
+        @keyframes loginFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .login-card .logo-area {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .login-card .logo-area img {
+            max-height: 72px;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 2px 8px rgba(184, 134, 11, 0.3));
+        }
+        .login-card .logo-area h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--gold-dark);
+            letter-spacing: -0.3px;
+        }
+        .login-card .logo-area p {
+            color: var(--gray-500);
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .login-card .form-group {
+            margin-bottom: 18px;
+        }
+        .login-card .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 5px;
+        }
+        .login-card .form-group .input-wrap {
+            position: relative;
+        }
+        .login-card .form-group .input-wrap .icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 18px;
+            pointer-events: none;
+        }
+        .login-card .form-group input {
+            width: 100%;
+            padding: 14px 16px 14px 46px;
+            border: 2px solid var(--gold-border);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 500;
+            font-family: inherit;
+            transition: var(--transition);
+            background: #fffcf0;
+            color: var(--gray-800);
+        }
+        .login-card .form-group input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px var(--gold-glow);
+        }
+        .login-card .form-group input::placeholder {
+            color: var(--gray-400);
+            font-weight: 400;
+        }
+
+        .login-card .form-group .toggle-pw {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: var(--gray-400);
+            cursor: pointer;
+            padding: 4px;
+            transition: var(--transition);
+        }
+        .login-card .form-group .toggle-pw:hover {
+            color: var(--gray-600);
+        }
+
+        .login-card .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--gold-gradient);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 17px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 6px;
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+        }
+        .login-card .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(184, 134, 11, 0.4);
+        }
+        .login-card .login-btn:active {
+            transform: translateY(0);
+        }
+        .login-card .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .login-card .login-error {
+            background: #fde8e8;
+            color: var(--danger);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 12px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid var(--danger);
+        }
+        .login-card .login-error.show {
+            display: flex;
+        }
+
+        .login-card .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--gray-400);
+            font-weight: 500;
+        }
+        .login-card .footer-text strong {
+            color: var(--gold-dark);
+            font-weight: 700;
+        }
+
+        /* ============================================
+           MAIN APP
+           ============================================ */
+        #app {
+            display: none;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            animation: appFadeIn 0.5s ease;
+        }
+        #app.visible {
+            display: block;
+        }
+
+        @keyframes appFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .app-header {
+            background: linear-gradient(160deg, #fffcf0, #fdf6e3);
+            border-radius: var(--radius);
+            padding: 14px 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 18px;
+            border: 1px solid var(--gold-border);
+        }
+        .app-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .app-header .brand img {
+            max-height: 44px;
+            filter: drop-shadow(0 2px 6px rgba(184, 134, 11, 0.2));
+        }
+        .app-header .brand .brand-text h1 {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--gold-dark);
+            letter-spacing: -0.2px;
+            line-height: 1.2;
+        }
+        .app-header .brand .brand-text span {
+            font-size: 12px;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .app-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .app-header .user-info .student-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gold-subtle);
+            padding: 5px 14px 5px 10px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--gray-700);
+            border: 1px solid var(--gold-border);
+        }
+        .app-header .user-info .student-badge .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        }
+        .app-header .user-info .logout-btn {
+            background: none;
+            border: 2px solid var(--gold-border);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        .app-header .user-info .logout-btn:hover {
+            background: #fde8e8;
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* ============================================
+           NAVBAR — PAPER TABS
+           ============================================ */
+        .paper-navbar {
+            background: linear-gradient(160deg, #fffcf0, #fdf6e3);
+            border-radius: var(--radius);
+            padding: 10px 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gold-border);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .paper-navbar .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .paper-navbar .nav-left .paper-tab {
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 2px solid var(--gray-200);
+            background: #fffcf0;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            position: relative;
+        }
+        .paper-navbar .nav-left .paper-tab:hover:not(.active):not(.submitted) {
+            border-color: var(--gold-primary);
+            background: var(--gold-subtle);
+        }
+        .paper-navbar .nav-left .paper-tab .tab-badge {
+            font-size: 10px;
+            background: var(--gray-200);
+            color: var(--gray-600);
+            padding: 1px 8px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        .paper-navbar .nav-left .paper-tab.active {
+            background: var(--gold-gradient);
+            border-color: var(--gold-primary);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(184, 134, 11, 0.25);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .paper-navbar .nav-left .paper-tab.active .tab-badge {
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+        .paper-navbar .nav-left .paper-tab.submitted {
+            background: #d4edda;
+            border-color: var(--success);
+            color: var(--success);
+        }
+        .paper-navbar .nav-left .paper-tab.submitted .tab-badge {
+            background: var(--success);
+            color: #fff;
+        }
+        .paper-navbar .nav-left .paper-tab.submitted.active {
+            background: var(--gold-gradient);
+            border-color: var(--gold-primary);
+            color: #fff;
+        }
+        .paper-navbar .nav-left .paper-tab.submitted.active .tab-badge {
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+        .paper-navbar .nav-left .paper-tab .tab-score {
+            font-size: 10px;
+            background: var(--gold-primary);
+            color: #fff;
+            padding: 1px 8px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+        .paper-navbar .nav-left .paper-tab.submitted .tab-score {
+            background: var(--success);
+        }
+
+        .paper-navbar .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-500);
+        }
+        .paper-navbar .nav-right .nav-arrow {
+            padding: 6px 14px;
+            border-radius: 50px;
+            border: 2px solid var(--gray-200);
+            background: #fffcf0;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        .paper-navbar .nav-right .nav-arrow:hover:not(:disabled) {
+            border-color: var(--gold-primary);
+            background: var(--gold-subtle);
+        }
+        .paper-navbar .nav-right .nav-arrow:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .paper-navbar .nav-right .paper-counter {
+            padding: 6px 12px;
+            background: var(--gold-subtle);
+            border-radius: 50px;
+            border: 1px solid var(--gold-border);
+            font-weight: 700;
+            color: var(--gold-dark);
+            font-size: 13px;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        /* ============================================
+           PROGRESS
+           ============================================ */
+        .progress-wrap {
+            background: linear-gradient(160deg, #fffcf0, #fdf6e3);
+            border-radius: var(--radius);
+            padding: 12px 20px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 18px;
+            border: 1px solid var(--gold-border);
+        }
+        .progress-wrap .progress-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: 6px;
+        }
+        .progress-wrap .progress-top .pct {
+            color: var(--gold-dark);
+            font-weight: 700;
+        }
+        .progress-wrap .progress-track {
+            width: 100%;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+        .progress-wrap .progress-track .progress-fill {
+            height: 100%;
+            background: var(--gold-gradient);
+            border-radius: 50px;
+            transition: width 0.6s ease;
+            width: 0%;
+        }
+
+        /* ============================================
+           PAPER LABEL
+           ============================================ */
+        .paper-label-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .paper-label-wrap .paper-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gold-dark);
+            background: var(--gold-subtle);
+            padding: 4px 18px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid var(--gold-border);
+        }
+        .paper-label-wrap .paper-label .badge {
+            background: var(--gold-gradient);
+            color: #fff;
+            font-size: 11px;
+            padding: 2px 12px;
+            border-radius: 50px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .paper-label-wrap .paper-status {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray-500);
+        }
+        .paper-label-wrap .paper-status .done {
+            color: var(--gold-dark);
+            font-weight: 700;
+        }
+        .paper-label-wrap .paper-status .paper-score-badge {
+            background: var(--gold-gradient);
+            color: #fff;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        /* ============================================
+           QUESTION CARDS
+           ============================================ */
+        .question-card {
+            background: #fffcf0;
+            border-radius: var(--radius);
+            padding: 22px 26px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gold-border);
+            transition: var(--transition);
+        }
+        .question-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--gold-primary);
+        }
+        .question-card .q-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+        .question-card .q-top .q-num {
+            font-weight: 700;
+            color: var(--gold-dark);
+            font-size: 13px;
+            background: var(--gold-subtle);
+            padding: 2px 14px;
+            border-radius: 50px;
+            white-space: nowrap;
+            border: 1px solid var(--gold-border);
+        }
+        .question-card .q-top .q-category {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .question-card .q-top .q-type {
+            font-size: 10px;
+            background: var(--gray-200);
+            color: var(--gray-600);
+            padding: 1px 10px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        .question-card .q-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .question-card .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 14px;
+        }
+        @media (max-width: 640px) {
+            .question-card .options {
+                grid-template-columns: 1fr;
+            }
+            .question-card {
+                padding: 16px 14px;
+            }
+            .app-header {
+                padding: 12px 16px;
+            }
+            .login-card {
+                padding: 32px 20px;
+            }
+            .app-header .brand .brand-text h1 {
+                font-size: 14px;
+            }
+            .paper-navbar .nav-left .paper-tab {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            .paper-navbar .nav-right .paper-counter {
+                font-size: 11px;
+                min-width: 55px;
+                padding: 4px 10px;
+            }
+        }
+
+        .question-card .options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 14px;
+            border-radius: var(--radius-sm);
+            background: #fffcf0;
+            border: 2px solid var(--gray-200);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+        .question-card .options label:hover:not(.disabled-label) {
+            background: var(--gold-subtle);
+            border-color: var(--gold-primary);
+            transform: translateY(-1px);
+        }
+        .question-card .options label .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--gray-200);
+            font-weight: 700;
+            font-size: 12px;
+            color: var(--gray-600);
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .question-card .options label:hover:not(.disabled-label) .option-letter {
+            background: var(--gold-primary);
+            color: #fff;
+        }
+        .question-card .options input[type="radio"] {
+            display: none;
+        }
+        .question-card .options label:has(input:checked) {
+            border-color: var(--gold-primary);
+            background: var(--gold-subtle);
+        }
+        .question-card .options label:has(input:checked) .option-letter {
+            background: var(--gold-gradient);
+            color: #fff;
+        }
+
+        .question-card .options label.disabled-label {
+            cursor: default;
+            opacity: 0.9;
+        }
+        .question-card .options label.correct-answer {
+            background: #d4edda !important;
+            border-color: var(--success) !important;
+        }
+        .question-card .options label.correct-answer .option-letter {
+            background: var(--success) !important;
+            color: #fff !important;
+        }
+        .question-card .options label.wrong-answer {
+            background: #f8d7da !important;
+            border-color: var(--danger) !important;
+        }
+        .question-card .options label.wrong-answer .option-letter {
+            background: var(--danger) !important;
+            color: #fff !important;
+        }
+        .question-card .options label.show-correct {
+            background: #d4edda !important;
+            border-color: var(--success) !important;
+        }
+        .question-card .options label.show-correct .option-letter {
+            background: var(--success) !important;
+            color: #fff !important;
+        }
+        .question-card .options label.unanswered {
+            background: #fff3cd !important;
+            border-color: #ffc107 !important;
+        }
+        .question-card .options label.unanswered .option-letter {
+            background: #ffc107 !important;
+            color: #fff !important;
+        }
+
+        /* Short answer text input */
+        .question-card .short-answer-input {
+            margin-top: 4px;
+            margin-bottom: 8px;
+        }
+        .question-card .short-answer-input input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 16px;
+            border: 2px solid var(--gold-border);
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 500;
+            font-family: inherit;
+            background: #fffcf0;
+            color: var(--gray-800);
+            transition: var(--transition);
+        }
+        .question-card .short-answer-input input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 4px var(--gold-glow);
+        }
+        .question-card .short-answer-input input:disabled {
+            background: var(--gray-100);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .question-card .short-answer-input input.correct-text {
+            border-color: var(--success);
+            background: #d4edda;
+        }
+        .question-card .short-answer-input input.wrong-text {
+            border-color: var(--danger);
+            background: #f8d7da;
+        }
+        .question-card .short-answer-input input.unanswered-text {
+            border-color: #ffc107;
+            background: #fff3cd;
+        }
+
+        .question-card .q-feedback {
+            margin-top: 12px;
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: feedbackSlide 0.3s ease;
+        }
+        @keyframes feedbackSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .question-card .q-feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid var(--success);
+        }
+        .question-card .q-feedback.wrong {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid var(--danger);
+        }
+        .question-card .q-feedback.unanswered-feedback {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+
+        /* ============================================
+           SUBMIT BUTTON
+           ============================================ */
+        .submit-area {
+            margin-top: 8px;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .btn-submit {
+            flex: 1;
+            min-width: 180px;
+            padding: 14px 24px;
+            background: var(--gold-gradient);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        }
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(184, 134, 11, 0.35);
+        }
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        .btn-submit.submitted {
+            background: var(--success);
+            text-shadow: none;
+        }
+
+        /* ============================================
+           RESULTS
+           ============================================ */
+        .result-box {
+            margin-top: 24px;
+            padding: 24px 28px;
+            border-radius: var(--radius);
+            background: linear-gradient(160deg, #fffcf0, #fdf6e3);
+            border: 2px solid var(--gold-primary);
+            box-shadow: var(--shadow-md);
+            display: none;
+            animation: resultIn 0.5s ease;
+        }
+        .result-box.show {
+            display: block;
+        }
+        @keyframes resultIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-box .score-hero {
+            text-align: center;
+            padding: 10px 0 14px;
+        }
+        .result-box .score-hero .big-score {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--gold-dark);
+            line-height: 1.1;
+        }
+        .result-box .score-hero .big-score span {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--gray-400);
+        }
+        .result-box .score-hero .score-label {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-top: 4px;
+        }
+        .result-box .score-hero .status-badge {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 5px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .result-box .score-hero .status-badge.pass {
+            background: #d4edda;
+            color: #155724;
+        }
+        .result-box .score-hero .status-badge.fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .result-box .result-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 14px 0 18px;
+            border-top: 1px solid var(--gold-border);
+            border-bottom: 1px solid var(--gold-border);
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .result-box .result-stats .stat-item {
+            text-align: center;
+        }
+        .result-box .result-stats .stat-item .stat-num {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--gray-800);
+        }
+        .result-box .result-stats .stat-item .stat-label {
+            font-size: 12px;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+        .result-box .result-stats .stat-item .stat-num.green {
+            color: var(--success);
+        }
+        .result-box .result-stats .stat-item .stat-num.red {
+            color: var(--danger);
+        }
+        .result-box .result-stats .stat-item .stat-num.gold {
+            color: var(--gold-dark);
+        }
+
+        .result-box .result-details {
+            max-height: 450px;
+            overflow-y: auto;
+            font-size: 13px;
+        }
+        .result-details::-webkit-scrollbar {
+            width: 4px;
+        }
+        .result-details::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 50px;
+        }
+        .result-details::-webkit-scrollbar-thumb {
+            background: var(--gold-border);
+            border-radius: 50px;
+        }
+        .result-details::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-primary);
+        }
+
+        .result-box .result-details .review-item {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            align-items: baseline;
+        }
+        .result-box .result-details .review-item .q-num {
+            font-weight: 700;
+            color: var(--gray-600);
+            min-width: 45px;
+        }
+        .result-box .result-details .review-item .wrong-ans {
+            color: var(--danger);
+        }
+        .result-box .result-details .review-item .correct-ans {
+            color: var(--success);
+            font-weight: 700;
+        }
+        .result-box .result-details .review-item .unanswered-ans {
+            color: #856404;
+            font-weight: 600;
+        }
+
+        .app-footer {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 12px;
+            color: var(--gray-400);
+            font-weight: 500;
+            padding: 6px 0;
+        }
+        .app-footer strong {
+            color: var(--gold-dark);
+        }
+
+        .paper {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .paper.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media print {
+            #loginScreen {
+                display: none !important;
+            }
+            .paper-navbar,
+            .submit-area,
+            .result-box {
+                display: none !important;
+            }
+            .paper {
+                display: block !important;
+            }
+            .question-card {
+                break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            .app-header {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            .progress-wrap {
+                display: none !important;
+            }
+            .app-footer {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+    LOGIN
+    ============================================ -->
+    <div id="loginScreen">
+        <div class="login-card">
+            <div class="logo-area">
+                <img src="logo1.png" alt="House of J&S Logo" onerror="this.style.display='none'" />
+                <h1>House of J&amp;S</h1>
+                <p>Computer Training Center</p>
+            </div>
+
+            <div class="form-group">
+                <label for="studentName">👤 Student Name</label>
+                <div class="input-wrap">
+                    <span class="icon">✏️</span>
+                    <input type="text" id="studentName" placeholder="Enter your full name" autocomplete="off" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="loginPassword">🔒 Password</label>
+                <div class="input-wrap">
+                    <span class="icon">🔑</span>
+                    <input type="password" id="loginPassword" placeholder="Enter exam password" />
+                    <button class="toggle-pw" id="togglePw" type="button" aria-label="Toggle password visibility">👁️</button>
+                </div>
+            </div>
+
+            <button class="login-btn" id="loginBtn">🚀 Start Exam</button>
+
+            <div class="login-error" id="loginError">
+                ⚠️ <span id="errorMsg">Invalid password. Please try again.</span>
+            </div>
+
+            <div class="footer-text">
+                Password: <strong>HJSFISO2026</strong> &nbsp;·&nbsp; Grade 6 · Category 6
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+    MAIN APP
+    ============================================ -->
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <img src="logo1.png" alt="House of J&S Logo" onerror="this.style.display='none'" />
+                <div class="brand-text">
+                    <h1>House of J&amp;S</h1>
+                    <span>FISO Exam · Grade 9-10 · Category 6</span>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="student-badge">
+                    <span class="avatar" id="avatarLetter">S</span>
+                    <span id="studentNameDisplay">Student</span>
+                </div>
+                <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
+            </div>
+        </header>
+
+        <!-- Paper Navbar -->
+        <nav class="paper-navbar" id="paperNavbar">
+            <div class="nav-left" id="navTabs"></div>
+            <div class="nav-right">
+                <button class="nav-arrow" id="prevPaper">‹</button>
+                <span class="paper-counter" id="paperCounter">1 / 5</span>
+                <button class="nav-arrow" id="nextPaper">›</button>
+            </div>
+        </nav>
+
+        <!-- Progress -->
+        <div class="progress-wrap">
+            <div class="progress-top">
+                <span>📊 Progress</span>
+                <span class="pct" id="progressPct">0%</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- Papers Container -->
+        <div id="papersContainer"></div>
+
+        <!-- Paper Label (dynamic) -->
+        <div class="paper-label-wrap" id="paperLabelWrap">
+            <div class="paper-label" id="paperLabel">📄 Paper 1 <span class="badge">Q1–25</span></div>
+            <div class="paper-status" id="paperStatus">📊 <span class="done">0</span> / 5 papers completed</div>
+        </div>
+
+        <!-- Submit Area -->
+        <div class="submit-area">
+            <button class="btn-submit" id="submitBtn">📤 Submit Current Paper</button>
+        </div>
+
+        <!-- Results -->
+        <div class="result-box" id="resultBox">
+            <div class="score-hero" id="scoreHero"></div>
+            <div class="result-stats" id="resultStats"></div>
+            <div class="result-details" id="resultDetails"></div>
+        </div>
+
+        <div class="app-footer">© 2025 House of J&amp;S Computer Training Center · All rights reserved</div>
+    </div>
+
+    <script>
+        // ============================================================
+        // 125 QUESTIONS — 25 per paper (5 papers)
+        // Grade 9-10 — DIGITAL TECHNOLOGY (CATEGORY 6)
+        // ============================================================
+        const questions = [];
+
+        // ----- Paper 1: Computer Fundamentals & Hardware (Q1–Q25) -----
+        const paper1 = [
+            { q: "Which device is considered the 'brain' of the computer?", options: ["Monitor", "CPU", "Keyboard", "Hard Disk"],
+                answer: 1 },
+            { q: "What is the full form of ROM?", options: ["Read Only Memory", "Random Only Memory", "Run Out Memory",
+                    "Rapid Online Memory"
+                ], answer: 0 },
+            { q: "Which of the following is an example of an output device?", options: ["Mouse", "Scanner", "Monitor",
+                    "Microphone"
+                ], answer: 2 },
+            { q: "The second generation of computers used which technology?", options: ["Vacuum tubes", "Transistors",
+                    "Integrated Circuits", "Microprocessors"
+                ], answer: 1 },
+            { q: "Which device is used to print documents on paper?", options: ["Scanner", "Printer", "Speaker", "Projector"],
+                answer: 1 },
+            { q: "What type of device is a computer keyboard?", options: ["Output device", "Storage device", "Input device",
+                    "Processing device"
+                ], answer: 2 },
+            { q: "Which of the following components stores data permanently when the computer is turned off?", options: ["RAM",
+                    "Cache Memory", "Hard Disk Drive (HDD)", "Register"
+                ], answer: 2 },
+            { q: "Which unit is used to measure the processing speed of a CPU?", options: ["Gigabytes (GB)",
+                    "Hertz (Hz / GHz)", "Dots Per Inch (DPI)", "Pixels"
+                ], answer: 1 },
+            { q: "Which of the following is a pointing device?", options: ["Keyboard", "Mouse", "Speaker", "Printer"],
+                answer: 1 },
+            { q: "What is the primary function of a Power Supply Unit (PSU) in a desktop computer?", options: [
+                    "To process data", "To convert AC power to DC power for components", "To connect to Wi-Fi",
+                    "To display graphics"
+                ], answer: 1 },
+            { q: "Which storage device uses laser technology to read and write data?", options: ["Hard Disk", "Flash Drive",
+                    "Compact Disc (CD)", "Floppy Disk"
+                ], answer: 2 },
+            { q: "Which of the following is a portable storage device that connects via a USB port?", options: ["Motherboard",
+                    "USB Flash Drive", "RAM stick", "CPU fan"
+                ], answer: 1 },
+            { q: "What does BIOS stand for in a computer system?", options: ["Basic Input Output System",
+                    "Binary Internal Operating System", "Basic Internet Open Software",
+                    "Built-in Integrated Operation Setup"
+                ], answer: 0 },
+            { q: "Which component connects all the internal parts of a computer together?", options: ["Power supply",
+                    "Motherboard", "Expansion card", "Monitor cable"
+                ], answer: 1 },
+            { q: "Which of the following expansion ports is commonly used to connect high-definition monitors?", options: [
+                    "PS/2 port", "HDMI port", "Parallel port", "Serial port"
+                ], answer: 1 },
+            { q: "What does a Barcode Reader do?", options: ["Outputs sound waves", "Scans printed lines and patterns to input data",
+                    "Clears virus infections", "Cools down the processor"
+                ], answer: 1 },
+            { q: "Which of the following memories is volatile (loses data when power is turned off)?", options: ["ROM",
+                    "Hard Disk", "RAM", "Flash Memory"
+                ], answer: 2 },
+            { q: "Which technology was introduced in the third generation of computers?", options: ["Vacuum tubes",
+                    "Transistors", "Integrated Circuits (ICs)", "Artificial Intelligence"
+                ], answer: 2 },
+            { q: "What is the standard capacity of a single-layer Blu-ray disc approximately?", options: ["700 MB",
+                    "4.7 GB", "25 GB", "1 TB"
+                ], answer: 2 },
+            { q: "Which device is typically used for playing computer games by moving a stick in various directions?",
+                options: ["Joystick", "Trackball", "Microphone", "Plotter"], answer: 0 },
+            // Short answer questions (21-25)
+            { q: "Which part of the computer temporarily holds data and instructions currently in use?", options: [],
+                answer: "RAM", shortAnswer: true },
+            { q: "What name is given to a device that functions as both input and touch-sensitive display?", options: [],
+                answer: "Touchscreen", shortAnswer: true },
+            { q: "What is the unit for measuring digital storage equal to 1024 Megabytes?", options: [],
+                answer: "Gigabyte (GB)", shortAnswer: true },
+            { q: "The intersection of a single row and column in a spreadsheet is called a what?", options: [],
+                answer: "Cell", shortAnswer: true },
+            { q: "Which input device captures moving video and audio for live streaming and video calls?", options: [],
+                answer: "Webcam", shortAnswer: true }
+        ];
+
+        // ----- Paper 2: Software & Operating Systems (Q26–Q50) -----
+        const paper2 = [
+            { q: "Which of the following is an example of an Operating System?", options: ["Microsoft Word", "Google Chrome",
+                    "Microsoft Windows", "Adobe Photoshop"
+                ], answer: 2 },
+            { q: "What is the main function of application software?", options: ["To manage computer hardware",
+                    "To help users perform specific tasks like writing or drawing", "To boot up the computer",
+                    "To translate machine code"
+                ], answer: 1 },
+            { q: "Which of the following software is used for creating text documents?", options: ["MS Excel", "MS Word",
+                    "MS PowerPoint", "MS Paint"
+                ], answer: 1 },
+            { q: "What is the background screen of Windows where icons are located called?", options: ["Taskbar", "Desktop",
+                    "Control Panel", "Recycle Bin"
+                ], answer: 1 },
+            { q: "Which program is used to view web pages on the internet?", options: ["Word Processor", "Web Browser",
+                    "Spreadsheet", "Database Manager"
+                ], answer: 1 },
+            { q: "What extension is typically given to Microsoft Word document files in modern versions?", options: [".txt",
+                    ".docx", ".xlsx", ".pptx"
+                ], answer: 1 },
+            { q: "Which utility program helps to reduce the file size of data for easier storage and sharing?", options: [
+                    "Disk Defragmenter", "File Compression (Zip/Unzip)", "Antivirus", "Calculator"
+                ], answer: 1 },
+            { q: "What is the function of an antivirus program?", options: ["To speed up internet browsing",
+                    "To detect and remove malicious software", "To create graphic animations", "To format hard drives"
+                ], answer: 1 },
+            { q: "Which tool in MS Paint or graphics software is used to fill an enclosed area with color?", options: [
+                    "Pencil Tool", "Eraser Tool", "Fill with Color (Paint Bucket)", "Magnifier"
+                ], answer: 2 },
+            { q: "Which operating system is developed and distributed by Apple Inc. for Mac computers?", options: [
+                    "Windows 11", "Ubuntu", "macOS", "Android"
+                ], answer: 2 },
+            { q: "What is the primary purpose of the taskbar in Windows?", options: [
+                    "To store deleted files permanently", "To show active applications and provide quick access shortcuts",
+                    "To protect the computer from viruses", "To adjust computer hardware voltage"
+                ], answer: 1 },
+            { q: "Which of the following is open-source operating system software based on Linux?", options: ["iOS",
+                    "Ubuntu", "Windows OS", "MS-DOS"
+                ], answer: 1 },
+            { q: "What is the function of the 'Save As' command?", options: ["To close the application immediately",
+                    "To save a file with a new name or in a new location", "To print the current document",
+                    "To delete a document permanently"
+                ], answer: 1 },
+            { q: "Which software tool is best suited for keeping track of budgets, calculations, and tables of numbers?",
+                options: ["Microsoft PowerPoint", "Microsoft Excel", "Notepad", "Paint"], answer: 1 },
+            { q: "What is the name of the pictorial representations of applications or files on a computer screen?", options: [
+                    "Widgets", "Icons", "Banners", "Drivers"
+                ], answer: 1 },
+            { q: "Which of the following file formats is commonly used for digital images and photos?", options: [".mp3",
+                    ".jpg / .png", ".pptx", ".mp4"
+                ], answer: 1 },
+            { q: "What happens when you empty the Recycle Bin in Windows?", options: ["Files are moved to the desktop",
+                    "Files are permanently deleted from the storage drive", "The computer shuts down",
+                    "System settings are reset"
+                ], answer: 1 },
+            { q: "Which key combination is commonly used to 'Undo' the last action in software applications?", options: [
+                    "Ctrl + C", "Ctrl + V", "Ctrl + Z", "Ctrl + P"
+                ], answer: 2 },
+            { q: "What type of software is MS PowerPoint categorized as?", options: ["Spreadsheet software",
+                    "Presentation software", "Word processing software", "System software"
+                ], answer: 1 },
+            { q: "Which operating system is widely used on smartphones and mobile devices?", options: ["MS-DOS", "Android",
+                    "Windows 98", "Linux Server"
+                ], answer: 1 },
+            // Short answer (21-25)
+            { q: "What is the system software that manages hardware and software resources on a computer?", options: [],
+                answer: "Operating System", shortAnswer: true },
+            { q: "What shortcut key combination is used to copy selected text or items?", options: [], answer: "Ctrl + C",
+                shortAnswer: true },
+            { q: "What shortcut key combination is used to paste copied items?", options: [], answer: "Ctrl + V",
+                shortAnswer: true },
+            { q: "What is the term for a malicious software program designed to replicate and damage files?", options: [],
+                answer: "Computer Virus", shortAnswer: true },
+            { q: "Which Microsoft Office tool is used to create slide presentations?", options: [],
+                answer: "Microsoft PowerPoint", shortAnswer: true }
+        ];
+
+        // ----- Paper 3: Internet, Networks & Communications (Q51–Q75) -----
+        const paper3 = [
+            { q: "What does the acronym 'WWW' stand for in website addresses?", options: ["World Wide Web", "World Wide Wire",
+                    "Web Wide World", "Wide World Web"
+                ], answer: 0 },
+            { q: "Which protocol is securely used to load web pages over the internet?", options: ["FTP", "HTTPS", "SMTP",
+                    "TCP"
+                ], answer: 1 },
+            { q: "What is an email attachment?", options: ["A virus embedded in text",
+                    "A separate file sent along with an email message", "The recipient's home address",
+                    "The subject line of an email"
+                ], answer: 1 },
+            { q: "Which of the following is an example of a search engine?", options: ["Microsoft Word", "Google",
+                    "Windows Media Player", "Bluetooth"
+                ], answer: 1 },
+            { q: "What does Wi-Fi stand for in wireless networking technology?", options: ["Wireless Fidelity",
+                    "Wired Finder", "Wide Field", "Web Filter"
+                ], answer: 0 },
+            { q: "Which term describes junk or unwanted commercial emails sent to multiple people?", options: ["Spam",
+                    "Phishing", "Malware", "Cookie"
+                ], answer: 0 },
+            { q: "What is the main purpose of a router in a computer network?", options: ["To print physical documents",
+                    "To forward data packets between computer networks", "To type letters quickly",
+                    "To record sound files"
+                ], answer: 1 },
+            { q: "What is a hyperlink on a web page?", options: ["A physical computer cable",
+                    "A clickable link that takes you to another page or website", "An image compression tool",
+                    "A computer hardware error"
+                ], answer: 1 },
+            { q: "Which component is required to connect a computer to a wired local area network (LAN)?", options: [
+                    "Ethernet cable and Network Interface Card (NIC)", "Microphone", "Projector", "Ink cartridge"
+                ], answer: 0 },
+            { q: "What does CC stand for when addressing an email message?", options: ["Carbon Copy", "Computer Code",
+                    "Cyber Control", "Client Connection"
+                ], answer: 0 },
+            { q: "What is a web server?", options: ["A program that browses web pages",
+                    "A computer that stores and delivers web pages to users over the internet",
+                    "A device used to print web documents", "An internet cable provider"
+                ], answer: 1 },
+            { q: "Which of the following actions is a safe practice when using the internet?", options: [
+                    "Sharing your password with online friends", "Clicking on unknown pop-up windows offering prizes",
+                    "Using strong, unique passwords and logging out of public computers",
+                    "Downloading files from untrusted sources"
+                ], answer: 2 },
+            { q: "What is cloud storage?", options: ["Storing data on physical floppy disks inside a cloud",
+                    "Saving and accessing data and programs over the internet on remote servers",
+                    "Weather tracking software on a local hard drive", "A temporary cache memory inside a CPU"
+                ], answer: 1 },
+            { q: "What is a domain name in a website URL (e.g., .com, .org, .edu)?", options: ["The user's password",
+                    "The extension indicating the type or organization of the website", "The physical weight of the server",
+                    "The font size of the webpage"
+                ], answer: 1 },
+            { q: "Which communication tool allows real-time text-based conversation over the internet?", options: [
+                    "Standard postal mail", "Instant Messaging / Chat", "Local printer queue", "Disk defragmenter"
+                ], answer: 1 },
+            { q: "What is 'phishing' in cyber security?", options: ["Catching fish using digital sensors",
+                    "A fraudulent attempt to steal sensitive information by masquerading as a trustworthy entity",
+                    "Cleaning dust out of computer keyboards", "Upgrading network speeds"
+                ], answer: 1 },
+            { q: "Which of the following is an email service provider?", options: ["Google Drive", "Gmail",
+                    "Microsoft Notepad", "Adobe Reader"
+                ], answer: 1 },
+            { q: "What is the purpose of a firewall in network security?", options: ["To heat up computer rooms during winter",
+                    "To monitor and filter network traffic based on security rules",
+                    "To increase internet download speed illegally", "To clean computer screen displays"
+                ], answer: 1 },
+            { q: "Which connection technology is used to connect wireless mice, keyboards, and headphones over short distances?",
+                options: ["Bluetooth", "Ethernet", "Fiber Optics", "VGA cable"], answer: 0 },
+            { q: "What is an IP address (Internet Protocol address)?", options: ["A secret password for an email account",
+                    "A unique numerical label assigned to each device connected to a computer network",
+                    "The physical home address of a software developer", "The speed limit of a Wi-Fi router"
+                ], answer: 1 },
+            // Short answer (21-25)
+            { q: "What does the acronym URL stand for?", options: [], answer: "Uniform Resource Locator",
+                shortAnswer: true },
+            { q: "What term describes a private network accessible only to an organization's staff?", options: [],
+                answer: "Intranet", shortAnswer: true },
+            { q: "What is the header field in an email that summarizes what the message is about called?", options: [],
+                answer: "Subject", shortAnswer: true },
+            { q: "Which email field hides the recipient's email address from other recipients?", options: [],
+                answer: "Bcc (Blind Carbon Copy)", shortAnswer: true },
+            { q: "What network type covers a large geographical area, such as connecting computers across different countries?",
+                options: [], answer: "WAN (Wide Area Network)", shortAnswer: true }
+        ];
+
+        // ----- Paper 4: Document Formatting, Tables & Presentations (Q76–Q100) -----
+        const paper4 = [
+            { q: "Which feature in MS Word allows you to copy formatting from one piece of text and apply it to another?",
+                options: ["Format Painter", "Mail Merge", "Find and Replace", "Spell Check"], answer: 0 },
+            { q: "What is the process of combining multiple adjacent table cells into a single larger cell called?", options: [
+                    "Splitting cells", "Merging cells", "Deleting rows", "Formatting borders"
+                ], answer: 1 },
+            { q: "How do you split a single table cell into multiple smaller cells in MS Word?", options: [
+                    "Use the Split Cells command", "Press the Delete key", "Use Format Painter", "Change font size"
+                ], answer: 0 },
+            { q: "Which feature in PowerPoint allows you to see all slides in thumbnail form on one screen?", options: [
+                    "Slide Sorter view", "Reading view", "Normal view", "Notes page view"
+                ], answer: 0 },
+            { q: "What is the purpose of adding transitions between slides in a presentation?", options: [
+                    "To check for spelling mistakes", "To create visual effects when moving from one slide to the next",
+                    "To calculate table numbers automatically", "To connect to the internet printer"
+                ], answer: 1 },
+            { q: "Which tool checks for grammar and spelling errors automatically in word processing software?", options: [
+                    "Word Count", "Spell Check / Proofing", "Text Highlighting", "Paragraph Alignment"
+                ], answer: 1 },
+            { q: "What is 'Mail Merge' used for in Microsoft Word?", options: [
+                    "Sending emails with large video attachments",
+                    "Combining a template document with a list of data to create personalized letters or labels",
+                    "Merging two different document files into one PDF", "Converting text into graphic images"
+                ], answer: 1 },
+            { q: "Which shortcut key combination is used to find specific words within a document?", options: ["Ctrl + F",
+                    "Ctrl + P", "Ctrl + H", "Ctrl + S"
+                ], answer: 0 },
+            { q: "What alignment option makes text line up evenly on both the left and right margins?", options: [
+                    "Left align", "Center align", "Right align", "Justify"
+                ], answer: 3 },
+            { q: "In Microsoft Excel, what symbol must begin every formula or function?", options: ["Equal sign (=)",
+                    "Dollar sign ($)", "At symbol (@)", "Hash symbol (#)"
+                ], answer: 0 },
+            { q: "Which function in Excel is used to find the sum total of a range of numbers?", options: ["AVERAGE",
+                    "SUM", "COUNT", "MAX"
+                ], answer: 1 },
+            { q: "What does the 'Slide Show' feature do in Microsoft PowerPoint?", options: [
+                    "Prints hard copies of presentation notes", "Runs the presentation full-screen for an audience",
+                    "Deletes blank slides automatically", "Checks presentation file size"
+                ], answer: 1 },
+            { q: "Which option changes the orientation of a page from upright to sideways?", options: [
+                    "Portrait to Landscape", "Margin adjustment", "Zoom in/out", "Font styling"
+                ], answer: 0 },
+            { q: "How do you insert a header or footer in a Word document?", options: [
+                    "Insert tab -> Header & Footer", "Home tab -> Font color", "View tab -> Zoom", "File tab -> Print"
+                ], answer: 0 },
+            { q: "What is the shortcut key for printing a document in most Windows applications?", options: ["Ctrl + P",
+                    "Ctrl + N", "Ctrl + O", "Ctrl + C"
+                ], answer: 0 },
+            { q: "Which feature allows you to replace a specific word throughout an entire document instantly?", options: [
+                    "Spell Checker", "Find and Replace", "Format Painter", "Word Count"
+                ], answer: 1 },
+            { q: "What is a template in productivity software?", options: ["A corrupted file error message",
+                    "A pre-designed document or slide layout that you can fill with your own content",
+                    "A temporary internet cache file", "An external hardware component"
+                ], answer: 1 },
+            { q: "Which formatting option makes text appear slanted to the right?", options: ["Bold", "Italic", "Underline",
+                    "Strikethrough"
+                ], answer: 1 },
+            { q: "In a presentation, what is an animation?", options: [
+                    "Moving effects applied to individual elements (text or images) on a slide",
+                    "Changing the computer screen resolution", "Playing background music during file loading",
+                    "Saving files automatically to cloud storage"
+                ], answer: 0 },
+            { q: "What is the default file extension for Microsoft Excel spreadsheets in modern versions?", options: [
+                    ".docx", ".pptx", ".xlsx", ".pdf"
+                ], answer: 2 },
+            // Short answer (21-25)
+            { q: "What is the term for text placed at the very bottom margin of every page in a document?", options: [],
+                answer: "Footer", shortAnswer: true },
+            { q: "Which shortcut key combination is used to save a document?", options: [], answer: "Ctrl + S",
+                shortAnswer: true },
+            { q: "What is the name of the feature that automatically moves text to the next line when it reaches the margin?",
+                options: [], answer: "Word Wrap", shortAnswer: true },
+            { q: "In Excel, what is a vertical collection of cells identified by letters called?", options: [],
+                answer: "Column", shortAnswer: true },
+            { q: "In Excel, what is a horizontal collection of cells identified by numbers called?", options: [],
+                answer: "Row", shortAnswer: true }
+        ];
+
+        // ----- Paper 5: Programming Basics, Logic & Digital Citizenship (Q101–Q125) -----
+        const paper5 = [
+            { q: "What is QBasic?", options: ["A computer hardware part", "A beginner-friendly programming language",
+                    "A high-speed web browser", "An antivirus software"
+                ], answer: 1 },
+            { q: "In block-based coding (like Scratch), what block category is typically used for movement actions like 'move 10 steps'?",
+                options: ["Looks", "Motion", "Sound", "Events"], answer: 1 },
+            { q: "What is an algorithm in computer science?", options: ["A type of physical computer monitor",
+                    "A step-by-step set of instructions or rules to solve a problem", "A network cable error",
+                    "A malicious computer virus"
+                ], answer: 1 },
+            { q: "What is a flowchart used for?", options: ["To draw artistic digital paintings",
+                    "To graphically represent a process, workflow, or algorithm", "To measure hard disk storage space",
+                    "To test internet connection speed"
+                ], answer: 1 },
+            { q: "In flowcharting, what geometric shape is conventionally used to represent a decision-making step (Yes/No)?",
+                options: ["Rectangle", "Oval (Terminator)", "Diamond", "Parallelogram"], answer: 2 },
+            { q: "What is the function of the `PRINT` command in basic programming?", options: [
+                    "To send a document to a physical paper printer", "To display text or results on the screen",
+                    "To save a file to the hard drive", "To clear computer memory"
+                ], answer: 1 },
+            { q: "What is digital citizenship?", options: [
+                    "The legal process of buying a computer in a foreign country",
+                    "Responsible, safe, and ethical use of technology and the internet",
+                    "Programming high-speed video games", "Installing operating systems on mobile phones"
+                ], answer: 1 },
+            { q: "What does 'cyberbullying' mean?", options: [
+                    "Using digital devices or networks to bully, harass, or threaten someone",
+                    "Playing multiplayer online games with friends", "Securing computer networks against hackers",
+                    "Backing up school project files online"
+                ], answer: 0 },
+            { q: "Why is it important to keep software and operating systems updated?", options: [
+                    "To make the computer weigh less", "To patch security vulnerabilities and fix bugs",
+                    "To change the desktop background color automatically", "To increase the monitor screen size"
+                ], answer: 1 },
+            { q: "What is a variable in programming?", options: ["A physical wire inside the CPU",
+                    "A storage location that holds data or values that can change during program execution",
+                    "A permanent hardware error code", "A type of web browser extension"
+                ], answer: 1 },
+            { q: "In Scratch 3.0, what does an 'Event' block do?", options: ["Plays background music",
+                    "Triggers scripts to run when a specific action happens (e.g., green flag clicked)",
+                    "Changes sprite costume colors", "Deletes unused variables"
+                ], answer: 1 },
+            { q: "What is copyright protection regarding digital media and software?", options: [
+                    "The right to copy any file freely without permission",
+                    "Legal rights given to creators over their original work, preventing unauthorized copying",
+                    "A password required to open Microsoft Word", "An automatic virus scan protocol"
+                ], answer: 1 },
+            { q: "What is debugging in computer programming?", options: ["Spraying insects away from computer hardware",
+                    "Finding and fixing errors or bugs in computer code", "Installing a new graphics card",
+                    "Deleting all files from a hard drive"
+                ], answer: 1 },
+            { q: "What does the 'INPUT' command do in basic programming languages?", options: [
+                    "Outputs text to the monitor screen",
+                    "Allows the user to enter data into the program during execution",
+                    "Prints documents on paper", "Shuts down the operating system"
+                ], answer: 1 },
+            { q: "In flowcharting, what shape represents input and output operations (like reading or displaying data)?",
+                options: ["Rectangle", "Parallelogram", "Diamond", "Circle"], answer: 1 },
+            { q: "What is open-source software?", options: [
+                    "Software whose source code is made freely available to view, modify, and distribute",
+                    "Software that costs a lot of money and is locked with a password",
+                    "Software that only runs without an internet connection",
+                    "Software designed specifically for computer repair technicians"
+                ], answer: 0 },
+            { q: "What is a strong password characteristic?", options: ["Using your pet's name or birthdate",
+                    "Using a combination of uppercase letters, lowercase letters, numbers, and symbols",
+                    "Writing it on a sticky note attached to your monitor", "Using a single common word like 'password'"
+                ], answer: 1 },
+            { q: "What is the purpose of loops in programming?", options: ["To stop a program from running permanently",
+                    "To repeat a sequence of instructions multiple times automatically",
+                    "To delete duplicate files on a hard drive", "To connect to wireless networks"
+                ], answer: 1 },
+            { q: "In coding, what is a 'bug'?", options: ["A small insect inside the computer case",
+                    "An error, flaw, or fault in a computer program that causes it to produce incorrect results",
+                    "A high-speed internet cable", "A security firewall feature"
+                ], answer: 1 },
+            { q: "What is the term for stealing someone's personal identity or information online fraudulently?", options: [
+                    "Identity theft / Cyber theft", "Data compression", "Disk defragmentation", "Pixel mapping"
+                ], answer: 0 },
+            // Short answer (21-25)
+            { q: "What shape is used as a Terminator (Start/End) in a flowchart?", options: [], answer: "Oval / Pill shape",
+                shortAnswer: true },
+            { q: "What term describes the legal code of ethical behavior and manners while communicating online?",
+                options: [], answer: "Netiquette", shortAnswer: true },
+            { q: "In programming, what is a named block of code that performs a specific task called?", options: [],
+                answer: "Function / Procedure", shortAnswer: true },
+            { q: "What is the name of the popular visual programming language created by MIT for kids using drag-and-drop blocks?",
+                options: [], answer: "Scratch", shortAnswer: true },
+            { q: "What symbol or command is used to add non-executable explanatory notes inside programming source code?",
+                options: [], answer: "Comment / Remark (REM)", shortAnswer: true }
+        ];
+
+        // Combine all papers
+        questions.push(...paper1, ...paper2, ...paper3, ...paper4, ...paper5);
+
+        // ============================================================
+        // APP STATE
+        // ============================================================
+        const PER_PAPER = 25;
+        const totalPapers = Math.ceil(questions.length / PER_PAPER);
+        let currentPaper = 0;
+        let submittedPapers = new Array(totalPapers).fill(false);
+        const userAnswers = new Array(questions.length).fill(null);
+        const userTextAnswers = new Array(questions.length).fill('');
+        const paperResults = new Array(totalPapers).fill(null);
+        let studentName = '';
+
+        // ============================================================
+        // DOM REFS
+        // ============================================================
+        const loginScreen = document.getElementById('loginScreen');
+        const appEl = document.getElementById('app');
+        const studentNameInput = document.getElementById('studentName');
+        const loginPasswordInput = document.getElementById('loginPassword');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginError = document.getElementById('loginError');
+        const errorMsg = document.getElementById('errorMsg');
+        const togglePw = document.getElementById('togglePw');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const studentNameDisplay = document.getElementById('studentNameDisplay');
+        const avatarLetter = document.getElementById('avatarLetter');
+        const papersContainer = document.getElementById('papersContainer');
+        const navTabs = document.getElementById('navTabs');
+        const paperCounter = document.getElementById('paperCounter');
+        const prevPaperBtn = document.getElementById('prevPaper');
+        const nextPaperBtn = document.getElementById('nextPaper');
+        const submitBtn = document.getElementById('submitBtn');
+        const resultBox = document.getElementById('resultBox');
+        const scoreHero = document.getElementById('scoreHero');
+        const resultStats = document.getElementById('resultStats');
+        const resultDetails = document.getElementById('resultDetails');
+        const progressFill = document.getElementById('progressFill');
+        const progressPct = document.getElementById('progressPct');
+        const paperLabel = document.getElementById('paperLabel');
+        const paperStatus = document.getElementById('paperStatus');
+
+        // ============================================================
+        // LOGIC
+        // ============================================================
+        function getInitials(name) {
+            if (!name) return 'S';
+            const parts = name.trim().split(/\s+/);
+            if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+            return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+        }
+
+        function handleLogin() {
+            const name = studentNameInput.value.trim();
+            const pw = loginPasswordInput.value.trim();
+
+            if (!name) {
+                showLoginError('Please enter your student name.');
+                return;
+            }
+            if (pw !== 'HJSFISO2026') {
+                showLoginError('Incorrect password. Please try again.');
+                return;
+            }
+
+            loginError.classList.remove('show');
+            studentName = name;
+            studentNameDisplay.textContent = name;
+            avatarLetter.textContent = getInitials(name);
+
+            loginScreen.classList.add('hidden');
+            appEl.classList.add('visible');
+
+            initExam();
+        }
+
+        function showLoginError(msg) {
+            errorMsg.textContent = msg;
+            loginError.classList.add('show');
+        }
+
+        togglePw.addEventListener('click', () => {
+            const type = loginPasswordInput.type === 'password' ? 'text' : 'password';
+            loginPasswordInput.type = type;
+            togglePw.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+
+        loginPasswordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleLogin(); });
+        studentNameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleLogin(); });
+        loginBtn.addEventListener('click', handleLogin);
+
+        logoutBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout? Your progress will be saved for this session.')) {
+                location.reload();
+            }
+        });
+
+        // ============================================================
+        // RENDER FUNCTIONS
+        // ============================================================
+        function getPaperLabel(index) {
+            const names = ['Fundamentals & Hardware', 'Software & OS', 'Internet & Networks',
+                'Formatting, Tables & Presentations', 'Programming & Digital Citizenship'
+            ];
+            return names[index] || `Paper ${index + 1}`;
+        }
+
+        function renderPaper(paperIndex) {
+            const start = paperIndex * PER_PAPER;
+            const end = Math.min(start + PER_PAPER, questions.length);
+            const paperData = questions.slice(start, end);
+            const isSubmitted = submittedPapers[paperIndex];
+
+            let html = `<div class="paper ${paperIndex === 0 ? 'active' : ''}" id="paper-${paperIndex}">`;
+
+            paperData.forEach((q, idx) => {
+                const globalIdx = start + idx;
+                const selected = userAnswers[globalIdx];
+                const textAnswer = userTextAnswers[globalIdx] || '';
+                const isShortAnswer = q.shortAnswer === true;
+
+                html += `
+                            <div class="question-card" id="qcard-${globalIdx}">
+                                <div class="q-top">
+                                    <span class="q-num">Q${globalIdx + 1}</span>
+                                    <span class="q-category">${getPaperLabel(paperIndex)}</span>
+                                    <span class="q-type">${isShortAnswer ? '✏️ Short Answer' : '🔘 Multiple Choice'}</span>
+                                </div>
+                                <div class="q-text">${q.q}</div>
+                        `;
+
+                if (isShortAnswer) {
+                    let inputClass = '';
+                    let feedbackHtml = '';
+                    let disabledAttr = '';
+                    let inputVal = textAnswer;
+
+                    if (isSubmitted) {
+                        disabledAttr = 'disabled';
+                        const isCorrect = textAnswer.trim().toLowerCase() === q.answer.toLowerCase();
+                        if (isCorrect) {
+                            inputClass = 'correct-text';
+                            feedbackHtml =
+                                `<div class="q-feedback correct">✅ Correct! Answer: ${q.answer}</div>`;
+                        } else if (textAnswer.trim() === '') {
+                            inputClass = 'unanswered-text';
+                            feedbackHtml =
+                                `<div class="q-feedback unanswered-feedback">⚠️ Not answered. Correct answer: ${q.answer}</div>`;
+                        } else {
+                            inputClass = 'wrong-text';
+                            feedbackHtml =
+                                `<div class="q-feedback wrong">❌ Incorrect. Correct answer: ${q.answer}</div>`;
+                        }
+                    }
+
+                    html += `
+                                <div class="short-answer-input">
+                                    <input type="text" 
+                                           id="text-${globalIdx}" 
+                                           class="${inputClass}" 
+                                           placeholder="Type your answer here..." 
+                                           value="${inputVal}" 
+                                           ${disabledAttr}
+                                           data-qidx="${globalIdx}" />
+                                </div>
+                                ${feedbackHtml}
+                            `;
+                } else {
+                    html += `<div class="options">`;
+                    q.options.forEach((opt, oi) => {
+                        let labelClass = '';
+                        let disabled = '';
+                        let checked = '';
+                        let unansweredClass = '';
+
+                        if (isSubmitted) {
+                            disabled = 'disabled';
+                            if (selected === null) {
+                                if (oi === q.answer) labelClass = 'show-correct';
+                                unansweredClass = 'unanswered';
+                            } else {
+                                if (oi === q.answer) labelClass = 'show-correct';
+                                if (selected === oi && selected !== q.answer) labelClass = 'wrong-answer';
+                                else if (selected === oi && selected === q.answer) labelClass = 'correct-answer';
+                            }
+                            if (selected === oi) checked = 'checked';
+                        } else {
+                            if (selected === oi) checked = 'checked';
+                        }
+
+                        const letter = String.fromCharCode(65 + oi);
+                        html += `
+                                    <label class="${labelClass} ${unansweredClass} ${isSubmitted ? 'disabled-label' : ''}">
+                                        <input type="radio" name="q${globalIdx}" value="${oi}" ${checked} ${disabled}>
+                                        <span class="option-letter">${letter}</span>
+                                        <span class="option-text">${opt}</span>
+                                    </label>
+                                `;
+                    });
+                    html += `</div>`;
+
+                    if (isSubmitted) {
+                        if (selected === null) {
+                            const correctText = q.options[q.answer];
+                            html += `
+                                        <div class="q-feedback unanswered-feedback">
+                                            ⚠️ Not answered. Correct answer: ${correctText}
+                                        </div>
+                                    `;
+                        } else {
+                            const isRight = selected === q.answer;
+                            const correctText = q.options[q.answer];
+                            html += `
+                                        <div class="q-feedback ${isRight ? 'correct' : 'wrong'}">
+                                            ${isRight ? '✅ Correct!' : '❌ Incorrect. Correct answer: ' + correctText}
+                                        </div>
+                                    `;
+                        }
+                    }
+                }
+
+                html += `</div>`;
+            });
+
+            html += `</div>`;
+            return html;
+        }
+
+        function renderAllPapers() {
+            let html = '';
+            for (let i = 0; i < totalPapers; i++) {
+                html += renderPaper(i);
+            }
+            papersContainer.innerHTML = html;
+            showPaper(currentPaper);
+            renderNavbar();
+
+            document.querySelectorAll('.short-answer-input input[type="text"]').forEach(inp => {
+                const qidx = parseInt(inp.dataset.qidx);
+                inp.addEventListener('input', function() {
+                    if (!submittedPapers[Math.floor(qidx / PER_PAPER)]) {
+                        userTextAnswers[qidx] = this.value;
+                    }
+                });
+            });
+        }
+
+        function showPaper(index) {
+            document.querySelectorAll('.paper').forEach((el, i) => {
+                el.classList.toggle('active', i === index);
+            });
+
+            document.querySelectorAll('.paper-tab').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+                if (submittedPapers[i]) {
+                    btn.classList.add('submitted');
+                } else {
+                    btn.classList.remove('submitted');
+                }
+                const scoreBadge = btn.querySelector('.tab-score');
+                if (scoreBadge && paperResults[i]) {
+                    const p = paperResults[i];
+                    const answered = p.details.filter(d => d.userAns !== null || d.textAns !== '').length;
+                    scoreBadge.textContent = `${p.correct}/${answered}`;
+                } else if (scoreBadge) {
+                    scoreBadge.textContent = '';
+                }
+            });
+
+            paperCounter.textContent = `${index + 1} / ${totalPapers}`;
+            prevPaperBtn.disabled = index === 0;
+            nextPaperBtn.disabled = index === totalPapers - 1;
+
+            if (submittedPapers[index]) {
+                submitBtn.textContent = '✅ Paper Submitted';
+                submitBtn.classList.add('submitted');
+                submitBtn.disabled = true;
+            } else {
+                submitBtn.textContent = '📤 Submit Current Paper';
+                submitBtn.classList.remove('submitted');
+                submitBtn.disabled = false;
+            }
+
+            const start = index * PER_PAPER + 1;
+            const end = Math.min((index + 1) * PER_PAPER, questions.length);
+            paperLabel.innerHTML = `📄 ${getPaperLabel(index)} <span class="badge">Q${start}–${end}</span>`;
+
+            const done = submittedPapers.filter(s => s).length;
+            let scoreText = '';
+            if (submittedPapers[index] && paperResults[index]) {
+                const p = paperResults[index];
+                const answered = p.details.filter(d => d.userAns !== null || d.textAns !== '').length;
+                scoreText = `<span class="paper-score-badge">${p.correct}/${answered} correct</span>`;
+            }
+            paperStatus.innerHTML = `📊 <span class="done">${done}</span> / ${totalPapers} papers completed ${scoreText}`;
+
+            updateProgress();
+        }
+
+        function renderNavbar() {
+            let html = '';
+            for (let i = 0; i < totalPapers; i++) {
+                const cls = i === 0 ? 'paper-tab active' : 'paper-tab';
+                const badge = `${i * PER_PAPER + 1}–${Math.min((i + 1) * PER_PAPER, questions.length)}`;
+                let scoreBadge = '';
+                if (submittedPapers[i] && paperResults[i]) {
+                    const p = paperResults[i];
+                    const answered = p.details.filter(d => d.userAns !== null || d.textAns !== '').length;
+                    scoreBadge = `<span class="tab-score">${p.correct}/${answered}</span>`;
+                }
+                const shortName = getPaperLabel(i);
+                html += `
+                            <button class="${cls}" data-paper="${i}" id="tab-${i}">
+                                ${shortName}
+                                <span class="tab-badge">${badge}</span>
+                                ${scoreBadge}
+                            </button>
+                        `;
+            }
+            navTabs.innerHTML = html;
+
+            document.querySelectorAll('.paper-tab').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const paper = parseInt(this.dataset.paper);
+                    if (paper >= 0 && paper < totalPapers) {
+                        currentPaper = paper;
+                        showPaper(paper);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.paper-tab').forEach((btn, i) => {
+                btn.classList.toggle('active', i === currentPaper);
+                if (submittedPapers[i]) {
+                    btn.classList.add('submitted');
+                } else {
+                    btn.classList.remove('submitted');
+                }
+            });
+        }
+
+        function updateProgress() {
+            const submitted = submittedPapers.filter(s => s).length;
+            const pct = Math.round((submitted / totalPapers) * 100);
+            progressFill.style.width = pct + '%';
+            progressPct.textContent = pct + '%';
+        }
+
+        // ============================================================
+        // NAVBAR NAVIGATION
+        // ============================================================
+        prevPaperBtn.addEventListener('click', () => {
+            if (currentPaper > 0) {
+                currentPaper--;
+                showPaper(currentPaper);
+            }
+        });
+
+        nextPaperBtn.addEventListener('click', () => {
+            if (currentPaper < totalPapers - 1) {
+                currentPaper++;
+                showPaper(currentPaper);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT') return;
+            if (e.key === 'ArrowRight' && currentPaper < totalPapers - 1) {
+                currentPaper++;
+                showPaper(currentPaper);
+            } else if (e.key === 'ArrowLeft' && currentPaper > 0) {
+                currentPaper--;
+                showPaper(currentPaper);
+            }
+        });
+
+        // ============================================================
+        // SUBMIT HANDLER
+        // ============================================================
+        function handleSubmit() {
+            if (submittedPapers[currentPaper]) {
+                alert('This paper has already been submitted.');
+                return;
+            }
+
+            const start = currentPaper * PER_PAPER;
+            const end = Math.min(start + PER_PAPER, questions.length);
+
+            for (let i = start; i < end; i++) {
+                const q = questions[i];
+                if (q.shortAnswer) {
+                    const inp = document.getElementById(`text-${i}`);
+                    if (inp) {
+                        userTextAnswers[i] = inp.value;
+                        userAnswers[i] = inp.value.trim().toLowerCase() === q.answer.toLowerCase() ? 0 : null;
+                    } else {
+                        userTextAnswers[i] = '';
+                        userAnswers[i] = null;
+                    }
+                } else {
+                    const radios = document.querySelectorAll(`input[name="q${i}"]`);
+                    let selected = null;
+                    radios.forEach(r => { if (r.checked) selected = parseInt(r.value); });
+                    userAnswers[i] = selected;
+                }
+            }
+
+            submittedPapers[currentPaper] = true;
+
+            document.querySelectorAll(`#paper-${currentPaper} input`).forEach(r => r.disabled = true);
+
+            let correct = 0;
+            let answered = 0;
+            let details = [];
+            for (let i = start; i < end; i++) {
+                const q = questions[i];
+                let isCorrect = false;
+                let userAns = userAnswers[i];
+                let textAns = userTextAnswers[i] || '';
+
+                if (q.shortAnswer) {
+                    const trimmed = textAns.trim();
+                    if (trimmed !== '') {
+                        answered++;
+                        isCorrect = trimmed.toLowerCase() === q.answer.toLowerCase();
+                        if (isCorrect) correct++;
+                    }
+                    details.push({
+                        num: i + 1,
+                        correct: isCorrect,
+                        userAns: null,
+                        textAns: trimmed,
+                        correctAns: q.answer,
+                        options: q.options,
+                        shortAnswer: true
+                    });
+                } else {
+                    const isCorrect = (userAns !== null && userAns === q.answer);
+                    if (userAns !== null) answered++;
+                    if (isCorrect) correct++;
+                    details.push({
+                        num: i + 1,
+                        correct: isCorrect,
+                        userAns: userAns,
+                        textAns: '',
+                        correctAns: q.answer,
+                        options: q.options,
+                        shortAnswer: false
+                    });
+                }
+            }
+
+            paperResults[currentPaper] = { correct, total: end - start, answered, details };
+
+            const paperContainer = document.getElementById(`paper-${currentPaper}`);
+            const newHtml = renderPaper(currentPaper);
+            paperContainer.outerHTML = newHtml;
+
+            renderNavbar();
+            updateProgress();
+            showOverallResult();
+
+            submitBtn.textContent = '✅ Paper Submitted';
+            submitBtn.classList.add('submitted');
+            submitBtn.disabled = true;
+
+            const done = submittedPapers.filter(s => s).length;
+            const p = paperResults[currentPaper];
+            paperStatus.innerHTML =
+                `📊 <span class="done">${done}</span> / ${totalPapers} papers completed <span class="paper-score-badge">${p.correct}/${p.answered} correct</span>`;
+
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ============================================================
+        // OVERALL RESULTS
+        // ============================================================
+        function showOverallResult() {
+            let totalCorrect = 0;
+            let totalAnswered = 0;
+            let allDetails = [];
+
+            for (let p = 0; p < totalPapers; p++) {
+                if (paperResults[p]) {
+                    totalCorrect += paperResults[p].correct;
+                    totalAnswered += paperResults[p].answered;
+                    allDetails = allDetails.concat(paperResults[p].details);
+                }
+            }
+
+            const totalQuestions = questions.length;
+            const score = Math.round((totalCorrect / totalQuestions) * 100);
+            const passed = score >= 70;
+            const submittedCount = submittedPapers.filter(s => s).length;
+            const isAllDone = submittedCount === totalPapers;
+
+            scoreHero.innerHTML = `
+                        <div class="big-score">${totalCorrect} <span>/ ${totalQuestions}</span></div>
+                        <div class="score-label">${score}% · ${passed ? '🎉 Passed' : '📚 Keep Learning'}</div>
+                        <div class="status-badge ${passed ? 'pass' : 'fail'}">${passed ? '✅ PASS' : '❌ NEEDS REVIEW'}</div>
+                        <div style="font-size:13px;color:var(--gray-500);margin-top:6px;">Answered: ${totalAnswered} / ${totalQuestions}</div>
+                    `;
+
+            const wrong = totalQuestions - totalCorrect;
+            const unanswered = totalQuestions - totalAnswered;
+            resultStats.innerHTML = `
+                        <div class="stat-item"><div class="stat-num green">${totalCorrect}</div><div class="stat-label">✅ Correct</div></div>
+                        <div class="stat-item"><div class="stat-num red">${wrong}</div><div class="stat-label">❌ Incorrect</div></div>
+                        <div class="stat-item"><div class="stat-num gold">${unanswered}</div><div class="stat-label">⏳ Unanswered</div></div>
+                        <div class="stat-item"><div class="stat-num">${submittedCount}</div><div class="stat-label">📄 Papers Done</div></div>
+                    `;
+
+            let detailHtml = '';
+            if (isAllDone) {
+                const wrongDetails = allDetails.filter(d => !d.correct);
+                const unansweredDetails = allDetails.filter(d => {
+                    if (d.shortAnswer) return d.textAns === '';
+                    return d.userAns === null;
+                });
+
+                if (wrongDetails.length > 0 || unansweredDetails.length > 0) {
+                    let items = [];
+                    if (wrongDetails.length > 0) {
+                        items.push(`
+                                    <div style="margin-bottom: 12px;">
+                                        <h5 style="color: var(--danger); font-size: 14px; margin-bottom: 6px;">❌ Wrong Answers (${wrongDetails.length})</h5>
+                                        ${wrongDetails.map(d => {
+                                            let userText = d.shortAnswer ? (d.textAns || 'Not answered') : (d.options[d.userAns] || 'Not answered');
+                                            let correctText = d.shortAnswer ? d.correctAns : d.options[d.correctAns];
+                                            return `
+                                                <div class="review-item">
+                                                    <span class="q-num">Q${d.num}</span>
+                                                    <span class="wrong-ans">❌ ${userText}</span>
+                                                    <span class="correct-ans">✅ ${correctText}</span>
+                                                </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                `);
+                    }
+                    if (unansweredDetails.length > 0) {
+                        items.push(`
+                                    <div>
+                                        <h5 style="color: #856404; font-size: 14px; margin-bottom: 6px;">⏳ Unanswered Questions (${unansweredDetails.length})</h5>
+                                        ${unansweredDetails.map(d => {
+                                            let correctText = d.shortAnswer ? d.correctAns : d.options[d.correctAns];
+                                            return `
+                                                <div class="review-item">
+                                                    <span class="q-num">Q${d.num}</span>
+                                                    <span class="unanswered-ans">⏳ Not answered</span>
+                                                    <span class="correct-ans">✅ ${correctText}</span>
+                                                </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                `);
+                    }
+                    detailHtml = `
+                                <div style="background: #fff8f0; border-radius: var(--radius-sm); padding: 16px; border-left: 4px solid var(--gold-primary); margin-bottom: 4px;">
+                                    ${items.join('')}
+                                </div>
+                            `;
+                } else {
+                    detailHtml = `
+                                <div style="background: #d4edda; border-radius: var(--radius-sm); padding: 20px; text-align: center; font-weight: 700; color: var(--success); border-left: 4px solid var(--success);">
+                                    🎉 Congratulations! All questions answered correctly!
+                                </div>
+                            `;
+                }
+            } else {
+                detailHtml = `
+                            <div style="background: var(--gold-subtle); border-radius: var(--radius-sm); padding: 16px; text-align: center; color: var(--gray-600); border: 1px dashed var(--gold-border);">
+                                📌 After completing all 5 papers, you will see a detailed review of wrong and unanswered questions here.
+                            </div>
+                        `;
+            }
+            resultDetails.innerHTML = detailHtml;
+
+            resultBox.classList.add('show');
+        }
+
+        // ============================================================
+        // INIT EXAM
+        // ============================================================
+        function initExam() {
+            renderAllPapers();
+            updateProgress();
+
+            submitBtn.addEventListener('click', handleSubmit);
+
+            console.log('✅ FISO Exam Loaded — Student:', studentName);
+            console.log(`📄 ${totalPapers} papers · ${questions.length} total questions · ${PER_PAPER} per paper`);
+            console.log('📝 You can submit even with unanswered questions.');
+            console.log('📊 Per-paper scores shown on tabs and status bar.');
+        }
+
+        // ============================================================
+        // BOOT
+        // ============================================================
+        studentNameInput.focus();
+        console.log('🏫 House of J&S FISO Exam — Grade 9-10 · Category 6');
+        console.log('🔑 Password: HJSFISO2026');
+        console.log(`📝 ${questions.length} questions · ${totalPapers} papers · ${PER_PAPER} per paper`);
+    </script>
+</body>
+</html>
